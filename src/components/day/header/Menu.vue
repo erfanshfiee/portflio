@@ -5,9 +5,6 @@
     <li><a href="">About</a></li>
     <li><a href="">Services</a></li>
     <li><a href="">Portfolio</a></li>
-    <li><a href="">Pricing</a></li>
-    <li><a href="">Team</a></li>
-    <dropDown class="span"/>
     <li><a href="">Contact</a></li>
   </ul>
 </nav>
@@ -55,7 +52,7 @@ nav{
   justify-content: flex-end;
 
 }
-@media (max-width: 750px) {
+@media (max-width: 960px) {
   nav{
     display: none;
   }

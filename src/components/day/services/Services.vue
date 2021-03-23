@@ -4,6 +4,7 @@
       <Title/>
       <div class="cards centerFlex">
         <Card v-for="(card,i) in cards"
+              :key="i"
               :title="card.title"
               :text="card.text"
               :logo="card.logo"

@@ -21,7 +21,6 @@ body,html{
   color:var(--body-text-color);
   font-weight: 400;
   font-size: 1rem;
-  padding-bottom: 20px;
   overflow-x: hidden;
 }
 p.text{
