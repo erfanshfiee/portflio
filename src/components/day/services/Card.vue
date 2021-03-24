@@ -85,6 +85,9 @@ p{
   line-height: 1.5rem;
   font-weight: bold;
 }
+h1,p{
+  text-align: center;
+}
 .wrapper{
   flex-direction: column;
   width: 95%;
@@ -108,5 +111,11 @@ p{
 }
 .ServicesCard:hover .logo::before{
   background: red;
+}
+@media (max-width: 960px) {
+  .ServicesCard{
+    width: 100%;
+  }
+
 }
 </style>

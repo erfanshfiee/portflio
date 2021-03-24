@@ -41,7 +41,6 @@ export default {
       const text = document.querySelector('#AboutText')
       const aboutImage = document.querySelector('#aboutImageContainer')
       const cards = document.querySelectorAll('.AboutMeCard')
-      console.log(cards)
       scrollAnimate(text, aboutImage,...cards)
     })
   },

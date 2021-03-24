@@ -14,7 +14,9 @@ export default {
 
     const isMenuOpen=inject('isMenuOpen')
     window.addEventListener('resize',()=>{
-      isMenuOpen.value=false
+      if(window.innerWidth>690){
+        isMenuOpen.value=false
+      }
 
     })
     function openMenu(){
@@ -53,8 +55,14 @@ export default {
 .openSikh2{
   transform: translateX(-30px);
   opacity: 0;
+  transform-origin: center;
 }
 .openSikh3{
   transform: rotate(-45deg) translateY(-10px) translateX(1px);
+}
+@media (min-width: 690px) {
+  .sikhes{
+    display: none;
+  }
 }
 </style>

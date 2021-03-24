@@ -1,12 +1,13 @@
 <template>
   <side-bar/>
   <topbar/>
-    <Header/>
+  <Header/>
   <section id="rest">
     <Show-case/>
     <about/>
     <Clients/>
     <Services/>
+    <Contact/>
     <footers/>
   </section>
 </template>
@@ -19,22 +20,32 @@ import ShowCase from "@/components/day/showcase/ShowCase";
 import about from "@/components/day/about/about";
 import Clients from "@/components/day/clients/Clients";
 import Services from "@/components/day/services/Services";
+import Contact from "@/components/day/contact/contact";
 import footers from "@/components/day/footer/footer";
-import {onMounted,ref,provide} from 'vue'
+import {onMounted, ref, provide} from 'vue'
+
 export default {
-  setup(){
-    const isMenuOpen=ref(false)
-    provide('isMenuOpen',isMenuOpen)
-    onMounted(()=>{
-      const topbar=document.querySelector('#topbar')
-      window.addEventListener('scroll',()=>{
-        const height=window.getComputedStyle(topbar).height
-        if(window.scrollY>=Number.parseInt(height)){
+  setup() {
+    const isMenuOpen = ref(false)
+    let links
+
+    function clearNav() {
+      links.forEach(link => {
+        link.classList.remove('active')
+      })
+    }
+
+    provide('isMenuOpen', isMenuOpen)
+    onMounted(() => {
+      const topbar = document.querySelector('#topbar')
+      window.addEventListener('scroll', () => {
+        const height = window.getComputedStyle(topbar).height
+        if (window.scrollY >= Number.parseInt(height)) {
           const target = document.querySelector('header')
           const rest = document.querySelector('#rest')
           rest.classList.add('restDown')
           target.classList.add('fixedHeader')
-        }else{
+        } else {
           const target = document.querySelector('header')
           const rest = document.querySelector('#rest')
           rest.classList.remove('restDown')
@@ -42,9 +53,43 @@ export default {
         }
       })
     })
+
+    function observerCallBack(entries) {
+      const [ent] = entries
+      if (ent.isIntersecting) {
+        clearNav()
+        if (ent.target.id === 'footer')
+          return
+        links.forEach(link => {
+          if (link.dataset.target === ent.target.id) {
+            link.classList.add('active')
+          }
+        })
+      }
+    }
+
+    onMounted(() => {
+      links = document.querySelectorAll('nav a')
+
+      // checkInitialActiveLink()
+          const showCase = document.querySelector('#text')
+          const about = document.querySelector('#aboute')
+          const services = document.querySelector('#Services')
+          const contact = document.querySelector('#contact')
+          const footer = document.querySelector('footer')
+          const items = [showCase, about, services, contact, footer]
+          const option = {
+            threshold: 0.4
+          }
+          const observer = new IntersectionObserver(observerCallBack, option)
+          items.forEach(item => {
+            observer.observe(item)
+          })
+
+    })
   },
   name: "Day",
-  components:{
+  components: {
     topbar,
     Header,
     ShowCase,
@@ -52,13 +97,14 @@ export default {
     Clients,
     Services,
     footers,
-    sideBar
+    sideBar,
+    Contact
   }
 }
 </script>
 
 <style scoped>
-#rest{
+#rest {
   transition: all 0s ease-in-out;
 }
 </style>

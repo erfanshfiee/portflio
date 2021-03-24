@@ -3,6 +3,9 @@
     --max-width:1200px;
     --logo-red:#cc1616
 }
+html,body{
+    scroll-behavior: smooth;
+}
 @font-face {
     font-family: 'rail';
     src:url("fonts/railBold.ttf");
@@ -117,4 +120,8 @@
 .none{
     height: 0;
     overflow: hidden;
+}
+
+.active{
+    background: var(--logo-red);
 }

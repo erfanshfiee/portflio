@@ -1,59 +1,123 @@
 <template>
-<nav class="centerFlex">
-  <ul class="centerFlex">
-    <li><a href="">Home</a></li>
-    <li><a href="">About</a></li>
-    <li><a href="">Services</a></li>
-    <li><a href="">Portfolio</a></li>
-    <li><a href="">Contact</a></li>
-  </ul>
-</nav>
+  <nav class="centerFlex">
+    <ul class="centerFlex">
+      <li @click="goToSection" data-target="text"><a data-target="text" href="#">Home</a></li>
+      <li @click="goToSection" data-target="aboute"><a data-target="aboute" href="#">About</a></li>
+      <li @click="goToSection" data-target="Services"><a data-target="Services" href="#">Services</a></li>
+      <li @click="goToSection" data-target="contact"><a data-target="contact" href="">Contact</a></li>
+    </ul>
+  </nav>
 </template>
-
 <script>
-import dropDown from "@/components/day/header/dropDown/dropDown";
 export default {
-  name: "Menu",
-  components:{
-    dropDown
-  }
+  setup() {
+    let lastId = null
+
+    function smoothScroll(target, duration) {
+      const targetElement = document.querySelector(target)
+      const top = targetElement.getBoundingClientRect().top
+      const marginTop = Number.parseFloat(window.getComputedStyle(targetElement).marginTop)
+      const paddingTop = Number.parseFloat(window.getComputedStyle(targetElement).paddingTop)
+      let headerHeiht = 0
+      if (targetElement.id !== 'text') {
+        const header = document.querySelector('header')
+        headerHeiht = Number.parseFloat(getComputedStyle(header).height)
+      }
+      const run = Number.parseFloat(top) + Number.parseFloat(window.scrollY) - (marginTop + paddingTop + headerHeiht)
+
+      window.scrollTo(0, run)
+      // targetElement.scrollIntoView({behavior:'smooth'})
+      // console.log(targetElement)
+      // const targetPosition = targetElement.getBoundingClientRect().top;
+      // const startPosition = window.scrollY
+      // const distance = Number.parseFloat(top)-Number.parseFloat(window.scrollY)
+      // let startTime = null
+      //
+      // function animationScroll(currentTime) {
+      //   if (startTime === null) {
+      //     startTime = currentTime
+      //   }
+      //   const timeElapsed = currentTime - startTime
+      //   var run = ease(timeElapsed, startPosition, distance, duration)
+      //   window.scrollTo(0, run)
+      //   if (timeElapsed < duration) requestAnimationFrame(animationScroll)
+      // }
+      //
+      // function ease(t, b, c, d) {
+      //   t /= d / 2;
+      //   if (t < 1) return c / 2 * t * t * t + b;
+      //   t -= 2;
+      //   return c / 2 * (t * t * t + 2) + b;
+      // }
+      //
+      // requestAnimationFrame(animationScroll)
+    }
+
+    function cleatActivs() {
+      const links = document.querySelectorAll('nav a')
+      links.forEach(link => {
+        link.classList.remove('active')
+      })
+    }
+
+    function goToSection(e) {
+      e.preventDefault()
+      cleatActivs()
+      const el = e.target.closest('li')
+      const link = el.querySelector('a')
+      link.classList.add('active')
+      const targetId = el.dataset.target
+      lastId = targetId
+      smoothScroll(`#${targetId}`, 1000)
+    }
+
+    return {
+      goToSection
+    }
+  },
+  name: 'Menu'
 }
 </script>
-
 <style scoped>
-li{
+li {
   list-style-type: none;
 }
-a:hover{
+
+a:hover {
   background: var(--logo-red);
 }
-a{
-  padding:25px 15px 24px 15px;
-  color:white;
+
+a {
+  padding: 25px 15px 24px 15px;
+  color: white;
   font-size: 14px;
   text-decoration: none;
   font-weight: bold;
   letter-spacing: 1px;
 }
->>> li.span{
-  padding:25px 15px 24px 15px;
-  color:white;
+
+>>> li.span {
+  padding: 25px 15px 24px 15px;
+  color: white;
   font-size: 14px;
   text-decoration: none;
   font-weight: bold;
   letter-spacing: 1px;
 }
->>> li.span:hover{
+
+>>> li.span:hover {
   background: var(--logo-red);
 }
-nav{
+
+nav {
   height: 100%;
   width: 800px;
   justify-content: flex-end;
 
 }
+
 @media (max-width: 960px) {
-  nav{
+  nav {
     display: none;
   }
 

@@ -3,7 +3,7 @@
     <div class="image centerFlex extraPadding">
       <div data-delay="1500" ref="text" class="text maxIs hideDown">
         <h1>WELCOME TO DAY</h1>
-        <p>We are team of talented designers making websites with Bootstrap</p>
+        <p>We are team of talented designers making websites with css</p>
         <button> GET STARTED</button>
       </div>
     </div>
@@ -43,7 +43,6 @@ button{
   width: 100%;
   height: 95vh;
   position: relative;
-  align-items: flex-start;
 }
 .image::before{
   content: '';
@@ -59,12 +58,15 @@ p{
 }
 .text{
   position: relative;
-  margin-top: 130px;
+  text-align: center;
 }
 h1{
   font-size: 48px;
   color:white;
   font-family: 'rail';
+}
+h1,p{
+  text-align: center;
 }
 @media (max-width: 700px) {
   .text{
@@ -81,5 +83,10 @@ h1{
     text-align: center;
   }
 
+}
+@media (max-width: 1000px) {
+  .image{
+    height: 500px;
+  }
 }
 </style>
