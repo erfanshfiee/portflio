@@ -23,68 +23,87 @@ import Services from "@/components/day/services/Services";
 import Contact from "@/components/day/contact/contact";
 import footers from "@/components/day/footer/footer";
 import {onMounted, ref, provide} from 'vue'
+import checkMenuEnambles from "@/utils/checkMenuEnambles";
 
 export default {
   setup() {
     const isMenuOpen = ref(false)
+    let topbar
     let links
+    let sideBarNavs
+    let showCase
+    let about
+    let services
+    let contact
+    let footer
+    let sections
+    function checkFixedNavigation() {
+      const height = window.getComputedStyle(topbar).height
+      if (window.scrollY >= Number.parseInt(height)) {
+        const target = document.querySelector('header')
+        const rest = document.querySelector('#rest')
+        rest.classList.add('restDown')
+        target.classList.add('fixedHeader')
+      } else {
+        const target = document.querySelector('header')
+        const rest = document.querySelector('#rest')
+        rest.classList.remove('restDown')
+        target.classList.remove('fixedHeader')
+      }
+    }
+
+    provide('isMenuOpen', isMenuOpen)
+    onMounted(() => {
+      topbar = document.querySelector('#topbar')
+      window.addEventListener('scroll', checkFixedNavigation)
+      checkFixedNavigation();
+    })
+
 
     function clearNav() {
       links.forEach(link => {
         link.classList.remove('active')
       })
+      sideBarNavs.forEach(link => {
+        link.classList.remove('sideBarLinkActive')
+      })
     }
 
-    provide('isMenuOpen', isMenuOpen)
-    onMounted(() => {
-      const topbar = document.querySelector('#topbar')
-      window.addEventListener('scroll', () => {
-        const height = window.getComputedStyle(topbar).height
-        if (window.scrollY >= Number.parseInt(height)) {
-          const target = document.querySelector('header')
-          const rest = document.querySelector('#rest')
-          rest.classList.add('restDown')
-          target.classList.add('fixedHeader')
-        } else {
-          const target = document.querySelector('header')
-          const rest = document.querySelector('#rest')
-          rest.classList.remove('restDown')
-          target.classList.remove('fixedHeader')
+    function checkNavigationActiveness(entries) {
+      const scrolled = window.scrollY + 200
+      sections.forEach(section => {
+        if (scrolled >= section.offsetTop && scrolled <= (section.offsetTop + section.offsetHeight)) {
+          clearNav()
+          links.forEach(link => {
+            if (link.dataset.target === section.id) {
+              link.classList.add('active')
+            }
+          })
+
+          sideBarNavs.forEach(link => {
+            if (link.dataset.target === section.id) {
+              link.classList.add('sideBarLinkActive')
+            }
+          })
         }
       })
-    })
 
-    function observerCallBack(entries) {
-      const [ent] = entries
-      if (ent.isIntersecting) {
-        clearNav()
-        if (ent.target.id === 'footer')
-          return
-        links.forEach(link => {
-          if (link.dataset.target === ent.target.id) {
-            link.classList.add('active')
-          }
-        })
-      }
     }
 
     onMounted(() => {
+      showCase = document.querySelector('#text')
+      about = document.querySelector('#aboute')
+      services = document.querySelector('#Services')
+      contact = document.querySelector('#contact')
+      footer = document.querySelector('footer')
+      sections = [showCase, about, services, contact, footer]
       links = document.querySelectorAll('nav a')
+      sideBarNavs = document.querySelectorAll('.sideBarLinks')
+      // const {checkNavs}=checkMenuEnambles(sections,links)
 
-      // checkInitialActiveLink()
-          const showCase = document.querySelector('#text')
-          const about = document.querySelector('#aboute')
-          const services = document.querySelector('#Services')
-          const contact = document.querySelector('#contact')
-          const footer = document.querySelector('footer')
-          const items = [showCase, about, services, contact, footer]
-          const option = {
-            threshold: 0.4
-          }
-          const observer = new IntersectionObserver(observerCallBack, option)
-          items.forEach(item => {
-            observer.observe(item)
-          })
+
+      window.addEventListener('scroll', checkNavigationActiveness)
+      checkNavigationActiveness();
 
     })
   },

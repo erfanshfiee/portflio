@@ -11,8 +11,6 @@
 <script>
 export default {
   setup() {
-    let lastId = null
-
     function smoothScroll(target, duration) {
       const targetElement = document.querySelector(target)
       const top = targetElement.getBoundingClientRect().top
@@ -26,31 +24,6 @@ export default {
       const run = Number.parseFloat(top) + Number.parseFloat(window.scrollY) - (marginTop + paddingTop + headerHeiht)
 
       window.scrollTo(0, run)
-      // targetElement.scrollIntoView({behavior:'smooth'})
-      // console.log(targetElement)
-      // const targetPosition = targetElement.getBoundingClientRect().top;
-      // const startPosition = window.scrollY
-      // const distance = Number.parseFloat(top)-Number.parseFloat(window.scrollY)
-      // let startTime = null
-      //
-      // function animationScroll(currentTime) {
-      //   if (startTime === null) {
-      //     startTime = currentTime
-      //   }
-      //   const timeElapsed = currentTime - startTime
-      //   var run = ease(timeElapsed, startPosition, distance, duration)
-      //   window.scrollTo(0, run)
-      //   if (timeElapsed < duration) requestAnimationFrame(animationScroll)
-      // }
-      //
-      // function ease(t, b, c, d) {
-      //   t /= d / 2;
-      //   if (t < 1) return c / 2 * t * t * t + b;
-      //   t -= 2;
-      //   return c / 2 * (t * t * t + 2) + b;
-      // }
-      //
-      // requestAnimationFrame(animationScroll)
     }
 
     function cleatActivs() {
@@ -67,7 +40,6 @@ export default {
       const link = el.querySelector('a')
       link.classList.add('active')
       const targetId = el.dataset.target
-      lastId = targetId
       smoothScroll(`#${targetId}`, 1000)
     }
 
@@ -81,9 +53,23 @@ export default {
 <style scoped>
 li {
   list-style-type: none;
+  position: relative;
+}
+a::after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  transform:scaleX(0);
+  transition: all 0.5s ease-in-out;
+  left: 0;
+  background: var(--logo-red);
+  bottom: 0;
 }
 
-a:hover {
+a:hover::after {
+  transform:scaleX(1);
+
   background: var(--logo-red);
 }
 
@@ -92,6 +78,7 @@ a {
   color: white;
   font-size: 14px;
   text-decoration: none;
+  position: relative;
   font-weight: bold;
   letter-spacing: 1px;
 }
@@ -113,12 +100,12 @@ nav {
   height: 100%;
   width: 800px;
   justify-content: flex-end;
-
+display: none;
 }
 
-@media (max-width: 960px) {
+@media (min-width: 600px) {
   nav {
-    display: none;
+    display: flex;
   }
 
 }

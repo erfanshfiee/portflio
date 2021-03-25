@@ -13,7 +13,7 @@
 
 <script>
 import {ref,onMounted} from 'vue'
-import scrollAnimate from "@/utils/scrollAnimate";
+import scrollAnimate from "@/utils/fadeElementsIn";
 export default {
   name: "Clients",
   setup(){

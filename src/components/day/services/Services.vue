@@ -20,7 +20,7 @@
 import Title from "@/components/day/services/Title";
 import Card from "@/components/day/services/Card";
 import {onMounted} from 'vue'
-import scrollAnimate from "@/utils/scrollAnimate";
+import scrollAnimate from "@/utils/fadeElementsIn";
 export default {
   name: "Services",
   components: {

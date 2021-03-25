@@ -125,3 +125,13 @@ html,body{
 .active{
     background: var(--logo-red);
 }
+
+.sideBarLinkActive::after{
+    content: '';
+    background: var(--logo-red);
+    width: 100%;
+    position: absolute;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+}

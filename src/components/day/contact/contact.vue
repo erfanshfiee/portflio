@@ -23,7 +23,7 @@
 import card from "@/components/day/contact/card";
 import Title from "@/components/ul/Title";
 import Forms from "@/components/day/contact/form";
-import scrollAnimate from "@/utils/scrollAnimate";
+import scrollAnimate from "@/utils/fadeElementsIn";
 import {onMounted} from 'vue'
 export default {
   setup(){

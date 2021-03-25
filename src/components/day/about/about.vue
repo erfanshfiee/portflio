@@ -32,7 +32,7 @@ import Text from "@/components/day/about/Text";
 import AboutImg from "@/components/day/about/AboutImg";
 import Cards from "@/components/day/about/Cards";
 import {onMounted} from 'vue'
-import scrollAnimate from "@/utils/scrollAnimate";
+import fadeElementsIn from "@/utils/fadeElementsIn";
 
 export default {
   setup() {
@@ -41,7 +41,7 @@ export default {
       const text = document.querySelector('#AboutText')
       const aboutImage = document.querySelector('#aboutImageContainer')
       const cards = document.querySelectorAll('.AboutMeCard')
-      scrollAnimate(text, aboutImage,...cards)
+      fadeElementsIn(text, aboutImage,...cards)
     })
   },
   name: "about",

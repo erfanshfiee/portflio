@@ -60,7 +60,7 @@ export default {
 .openSikh3{
   transform: rotate(-45deg) translateY(-10px) translateX(1px);
 }
-@media (min-width: 690px) {
+@media (min-width: 600px) {
   .sikhes{
     display: none;
   }

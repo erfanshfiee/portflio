@@ -1,38 +1,25 @@
 
-
-export default (...sections)=>{
-    const cb=(entries)=>{
-        const [ent]=entries
-        if(ent.isIntersecting){
-            const hrefs=document.querySelectorAll('.openNav a')
-            const target=ent.target
-            console.log(target)
-
-            hrefs.forEach(href=>{
-                href.classList.remove('active')
-            })
-            if(target.id==='footer'){
-                hrefs.forEach(href=>{
-                    href.classList.remove('active')
+export default function checkMenuEnambles(sections,links){
+    const localSections=sections
+    const navLinks=links
+    function clearNav() {
+        links.forEach(link => {
+            link.classList.remove('active')
+        })
+    }
+    const scrolled=window.scrollY+100
+    function checkNavs()
+    {
+        sections.forEach(section=>{
+            if(scrolled>=section.offsetTop){
+                clearNav()
+                links.forEach(link=>{
+                    if(link.dataset.target===section.id){
+                        link.classList.add('active')
+                    }
                 })
-                return
             }
-
-            const id=target.id
-            hrefs.forEach(href=>{
-                if(href.id.startsWith(id)){
-                    href.classList.add('active')
-                }
-            })
-
-        }
+        })
     }
-    const options={
-        rootMargin:'0px',
-        threshold:0.5
-    }
-    const observer=new IntersectionObserver(cb,options)
-    sections.forEach(section=>{
-        observer.observe(section)
-    })
+    return {checkNavs}
 }

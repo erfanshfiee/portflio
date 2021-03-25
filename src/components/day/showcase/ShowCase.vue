@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import scrollAnimate from "@/utils/scrollAnimate";
+import scrollAnimate from "@/utils/fadeElementsIn";
 import {ref,onMounted} from 'vue'
 export default {
 name: "ShowCase",

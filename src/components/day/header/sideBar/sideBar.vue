@@ -3,12 +3,10 @@
   <div class="backGround" v-if="isMenuOpen"></div>
   <div id="sideBar" :class="{open:isMenuOpen}">
     <ul>
-      <li><a href="#text">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#Services">Services</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li></li>
-      <li><a href="">Contact</a></li>
+      <li @click="goToSection" data-target="text"><a class="sideBarLinks" data-target="text" href="">Home</a></li>
+      <li @click="goToSection" data-target="aboute"><a class="sideBarLinks" data-target="aboute" href="">About</a></li>
+      <li @click="goToSection" data-target="Services"><a class="sideBarLinks" data-target="Services" href="">Services</a></li>
+      <li @click="goToSection" data-target="contact"><a class="sideBarLinks" data-target="contact" href="">Contact</a></li>
     </ul>
   </div>
 </teleport>
@@ -20,8 +18,42 @@ export default {
   name: "sideBar",
   setup(){
     const isMenuOpen=inject('isMenuOpen')
+    function smoothScroll(target, duration) {
+      const targetElement = document.querySelector(target)
+      const top = targetElement.getBoundingClientRect().top
+      const marginTop = Number.parseFloat(window.getComputedStyle(targetElement).marginTop)
+      const paddingTop = Number.parseFloat(window.getComputedStyle(targetElement).paddingTop)
+      let headerHeiht = 0
+      if (targetElement.id !== 'text') {
+        const header = document.querySelector('header')
+        headerHeiht = Number.parseFloat(getComputedStyle(header).height)
+      }
+      const run = Number.parseFloat(top) + Number.parseFloat(window.scrollY) - (marginTop + paddingTop + headerHeiht)
+
+      window.scrollTo(0, run)
+        isMenuOpen.value=false
+
+    }
+
+    function cleatActivs() {
+      const links = document.querySelectorAll('sideBarLinks a')
+      links.forEach(link => {
+        link.classList.remove('sideBarLinkActive')
+      })
+    }
+
+    function goToSection(e) {
+      e.preventDefault()
+      cleatActivs()
+      const el = e.target.closest('li')
+      const link = el.querySelector('a')
+      link.classList.add('sideBarLinkActive')
+      const targetId = el.dataset.target
+      smoothScroll(`#${targetId}`, 1000)
+    }
     return{
-      isMenuOpen
+      isMenuOpen,
+      goToSection
     }
   }
 }
@@ -60,6 +92,7 @@ li{
 a{
   text-decoration: none;
   color: white;
+  position: relative;
 }
 .open{
   transform: translateX(0) !important;
