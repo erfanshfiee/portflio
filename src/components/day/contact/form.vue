@@ -1,14 +1,11 @@
 <template>
   <form action="" class="centerFlex hideScale" id="submit">
     <div class="row">
-      <Input label="your name"/>
-      <Input label="your email"/>
+      <Input element="input" label="your name"/>
+      <Input element="input" label="your email"/>
     </div>
-    <Input label="subject"/>
 <div class="textArea">
-      <textarea placeholder="Message">
-
-    </textarea>
+  <Input label="Subject" element="textArea"/>
 </div>
     <button>Send Message</button>
 
@@ -40,15 +37,9 @@ form{
 .centerFlex{
   flex-direction: column;
 }
-textarea{
-  width: 100%;
-  height: 150px;
-  border: 1px solid #ced4da;
-padding: 15px 15px;
-}
+
 .textArea{
   width: 100%;
-  padding: 10px;
 }
 button{
   padding: 20px 10px;
@@ -58,6 +49,7 @@ button{
   background: #cc1616;
   font-weight: bold;
 }
+>>>textarea
 @media (max-width: 530px) {
   .row{
     flex-direction: column;

@@ -1,7 +1,8 @@
 <template>
   <div class="flowInput">
     <p @click="focusIn" :class="{goTop:isFocus}" ref="p">{{label}}</p>
-    <input ref="input" @focus="focusIn" @focusout="onfocus" type="text">
+    <input v-if="element==='input'" ref="input" @focus="focusIn" @focusout="onfocus" type="text">
+    <textarea v-else-if="element==='textArea'" ref="input" @focus="focusIn" @focusout="onfocus"></textarea>
   </div>
 </template>
 
@@ -32,7 +33,7 @@ export default {
     }
   },
   name: "Input",
-  props:['label','type']
+  props:['label','type','element']
 }
 </script>
 
@@ -49,10 +50,11 @@ input{
   font-size: 14px;
 }
 p{
+  z-index: 2;
   position: absolute;
   left: 20px;
   user-select: none;
-  top: 50%;
+  top: 35px;
   transition: all 0.3s linear;
   transform: translateY(-50%);
 }
@@ -62,5 +64,12 @@ p{
   font-weight: bold;
   top: 20px;
 
+}
+textarea{
+  width: 100%;
+  height: 150px;
+  border: 1px solid #ced4da;
+  padding: 20px 15px;
+  resize: vertical;
 }
 </style>

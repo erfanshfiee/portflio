@@ -55,7 +55,7 @@ export default {
 p,h1{
   text-align: center;
 }
-@media (max-width: 530px) {
+@media (max-width: 960px) {
   .cardContact{
     width: 100%;
   }

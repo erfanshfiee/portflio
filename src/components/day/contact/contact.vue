@@ -102,4 +102,11 @@ export default {
   }
 
 }
+
+@media (max-width: 960px) {
+  >>> #contactAdress{
+    max-width: 100%;
+  }
+
+}
 </style>
