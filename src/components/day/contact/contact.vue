@@ -29,7 +29,7 @@ export default {
   setup(){
     onMounted(()=>{
       const adress=document.querySelector('#contactAdress')
-      const email=document.querySelector('#contactEmail')
+      const email=document.querySelector('#contactEmail');
       const phone=document.querySelector('#contactPhone')
       const submit=document.querySelector('#submit')
       scrollAnimate(adress,email,phone,submit)
