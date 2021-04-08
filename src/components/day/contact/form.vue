@@ -49,13 +49,12 @@ button{
   background: #cc1616;
   font-weight: bold;
 }
->>>textarea
 @media (max-width: 530px) {
   .row{
     flex-direction: column;
   }
   form{
-    width: 100%;
+    width: 100% !important;
   }
 }
 </style>
